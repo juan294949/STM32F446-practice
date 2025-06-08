@@ -1,5 +1,14 @@
 #list of files to ignore
-
 *.o
 *.d
-./driver_developtment_Uvision_Keil/driver_developtment/Objects/*
+
+#Keil generated files.
+driver_developtment_Uvision_Keil/driver_developtment/Objects
+driver_developtment_Uvision_Keil/driver_developtment/JLinkLog.txt
+driver_developtment_Uvision_Keil/driver_developtment/Listings/stm32f446re_project.map
+driver_developtment_Uvision_Keil/driver_developtment/RTE/Device/STM32F446RETx/STM32F446.dbgconf
+driver_developtment_Uvision_Keil/driver_developtment/RTE/Device/STM32F446RETx/STM32F446.dbgconf.base@0.0.0
+driver_developtment_Uvision_Keil/driver_developtment/RTE/_Target_1/RTE_Components.h
+driver_developtment_Uvision_Keil/driver_developtment/stm32f446re_project.uvguix.isaza
+driver_developtment_Uvision_Keil/driver_developtment/stm32f446re_project.uvoptx
+driver_developtment_Uvision_Keil/driver_developtment/DebugConfig/Target_1_STM32F446RETx.dbgconf
