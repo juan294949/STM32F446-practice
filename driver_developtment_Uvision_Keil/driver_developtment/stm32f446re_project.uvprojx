@@ -362,7 +362,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -382,7 +382,14 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>drivers</GroupName>
+          <GroupName>dma</GroupName>
+          <Files>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\source\dma\dma.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>initialization_files</GroupName>
@@ -403,9 +410,9 @@
           <GroupName>Tests</GroupName>
           <Files>
             <File>
-              <FileName>test_Hello_world_LED.c</FileName>
+              <FileName>test_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\tests\test_Hello_world_LED.c</FilePath>
+              <FilePath>.\test_dma.c</FilePath>
             </File>
           </Files>
         </Group>

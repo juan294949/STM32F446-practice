@@ -4,7 +4,7 @@
 * @author  
 * @brief 
 *******************************************************************************/
-
+#include <stdint.h>
 #include "../header/init-stm32f446RE/stm32f4xx.h"
 
 void GPIO_config(void)
@@ -68,4 +68,3 @@ while(1)
 }
 
 }
-
