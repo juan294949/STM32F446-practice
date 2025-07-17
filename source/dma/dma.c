@@ -12,7 +12,7 @@
 * @param dma Receives a enumeration from DmaSelectEnum with the selected DMA to enable.
 *
 ************************************************************************************************/
-DmaStatusEnum enable_dma_module(DmaSelectEnum dma)
+inline DmaStatusEnum enable_dma_module(DmaSelectEnum dma)
 {
   DmaStatusEnum ret_status = -1;
   
@@ -57,7 +57,31 @@ DmaStatusEnum enable_dma_module(DmaSelectEnum dma)
 ************************************************************************************************/
 DmaStatusEnum dma_init(DmaSelectEnum dma)
 {
-  DmaStatusEnum Ret_status = enable_dma_module(dma);
+  DmaStatusEnum Ret_status = DMA_DISABLED;
+
+  /* Check if the clock source for the DMAx has been inititalized.*/
+  switch(dma)
+  {
+    case DMA_SELECT_1:
+    {
+      if((RCC->AHB1ENR & (RCC_AHB1ENR_DMA1EN)) != RCC_AHB1ENR_DMA1EN)
+      {
+        Ret_status = enable_dma_module(DMA_SELECT_1); /* Initialize the DMA that is required to be used.*/
+      }
+      else Ret_status = DMA_ENABLED;
+      break;
+    }
+    case(DMA_SELECT_2):
+    {
+      if((RCC->AHB1ENR & (RCC_AHB1ENR_DMA2EN)) != RCC_AHB1ENR_DMA2EN)
+      {
+        Ret_status = enable_dma_module(DMA_SELECT_2); /* Initialize the DMA that is required to be used.*/
+      }
+      else Ret_status = DMA_ENABLED;
+      break;
+    }
+  }
+
   if(Ret_status == DMA_ENABLED)
   {
     /*The following sequence must be followed to configure a DMA stream x (where x is the
@@ -71,12 +95,9 @@ DmaStatusEnum dma_init(DmaSelectEnum dma)
     register (DMA_LISR and DMA_HISR) from the previous data block DMA transfer must
     be cleared before the stream can be re-enabled.*/
     DMA_TypeDef* DMA_array[2] = {DMA1,DMA2};
-    DMA_array[dma - 1]->DMA_S
-    
+    DMA_array[dma - 1]->
   }
-
-
-
+  return Ret_status;
 }
 
 /***********************************************************************************************

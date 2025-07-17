@@ -1,6 +1,7 @@
 #list of files to ignore
 *.o
 *.d
+.vscode
 
 #Keil generated files.
 driver_developtment_Uvision_Keil/driver_developtment/Objects
