@@ -30,7 +30,7 @@ extern "C" {
 /** @addtogroup STM32F4xx_HAL_Driver
   * @{
   */
-
+  #include "stm32f4xx_hal_dma.h" // manually added to evoid DMA compilation error.
 /** @addtogroup SPI
   * @{
   */

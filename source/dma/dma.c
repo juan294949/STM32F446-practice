@@ -1,4 +1,4 @@
-#include "../../header/init-stm32f446RE/stm32f4xx.h"
+#include "../../CMSIS/Device/Include/stm32f446xx.h"
 #include "../../header/dma/dma.h"
 #include "../../header/common/common.h"
 
@@ -95,7 +95,7 @@ DmaStatusEnum dma_init(DmaSelectEnum dma)
     register (DMA_LISR and DMA_HISR) from the previous data block DMA transfer must
     be cleared before the stream can be re-enabled.*/
     DMA_TypeDef* DMA_array[2] = {DMA1,DMA2};
-    DMA_array[dma - 1]->
+    //DMA_array[dma - 1]->
   }
   return Ret_status;
 }

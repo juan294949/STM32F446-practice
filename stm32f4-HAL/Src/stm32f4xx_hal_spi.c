@@ -199,6 +199,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+#include "utility.h"
 #include "stm32f4xx_hal.h"
 
 /** @addtogroup STM32F4xx_HAL_Driver
@@ -778,6 +779,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
 
   /* Init tickstart for timeout management*/
   tickstart = HAL_GetTick();
+
   initial_TxXferCount = Size;
 
   if (hspi->State != HAL_SPI_STATE_READY)
@@ -875,6 +877,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
       /* Wait until TXE flag is set to send data */
       if (__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXE))
       {
+        
         *((__IO uint8_t *)&hspi->Instance->DR) = *((const uint8_t *)hspi->pTxBuffPtr);
         hspi->pTxBuffPtr += sizeof(uint8_t);
         hspi->TxXferCount--;

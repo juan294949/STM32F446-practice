@@ -1,36 +1,71 @@
-#	----------------------------------------------------------
-#	Note: About <eabi>
-#	EABI stands for Embedded Application Binary Interface.
-#	It is a set of rules and conventions that define: 
-#	1).How function calls are made 
-#	2).How data is laid out in memory
-#	3).How parameters and return values are passed (e.g., registers vs. stack)
-#	4).How the stack is aligned
-#	5).How exceptions and interrupts are handled
-#	6).How to ensure object files (.o) and libraries (.a,.so) are binary-compatible
-# <processor>-<Operating System>-<rules>-<compiler>-<compiler>
-#	-----------------------------------------------------------
+# Toolchain
+CC = arm-none-eabi-gcc
 
-#	-mcpu=cortex-m4	This specifies the name of the target ARM processor.
-#	-march=armv7e-m The name of the target ARM architecture
-#	-mtune=cortex-m4 
-#										This option specifies the name of the target ARM processor for which GCC
-#										should tune the performance of the code. For some ARM implementations
-#										better performance can be obtained by using this option. 
-#	-mthumb	
-#					compact instructions for smaller, more efficient code, while still using the same 32-bit registers and data.
-#					It's essential for microcontrollers and useful in size-critical applications.
+# Target
+TARGET = stm32f446re
 
-COMPILER=arm-none-eabi-gcc
-ARCHITECTURE=armv7e-m
-PROCESSOR=cortex-m4
-OPTIMIZATION=0
-CFLAGS=-c -mcpu=$(PROCESSOR) -march=$(ARCHITECTURE) -mthumb -O$(OPTIMIZATION)
-STD=gnu11
-SRCDIR=example
+# Architecture
+CFLAGS = -mcpu=cortex-m4 \
+         -march=armv7e-m \
+         -mthumb \
+         -O0 -g \
+         -std=c99 \
+         -mfpu=fpv4-sp-d16 \
+         -mfloat-abi=hard \
+         -save-temps #Generates all the different stages when generating the binary source code.
 
-#target:dependency . Therefore, $^ = depency and $@ = target
-main.o:$(SRCDIR)/main.c
-	$(COMPILER)	$(CFLAGS) -std=$(STD) 	$^	-o	$@
+# Include paths
+INCLUDES =	-I../header/dma \
+			-I../header/rcc \
+			-I../header/exti \
+			-I../header/gpio \
+			-I../header/timer \
+			-I../header/systick \
+			-I../header/utility \
+			-I../header/system \
+			-I../header/usart \
+			-I../CMSIS/Core/Include \
+			-I../CMSIS/Device/Include \
+			-I../unit-test/header
+
+# Source files
+SRCS = ../source/dma/*.c \
+      	../source/rcc/*.c \
+		../source/exti/*.c \
+		../source/gpio/*.c \
+		../source/timer/*.c \
+		../source/systick/*.c \
+		../source/usart/*.c \
+		../source/utility/*.c \
+		../source/system/*.c \
+      	../source/init-stm32f446re/*.c \
+		../unit-test/source/*.c \
+		../unit-test/main-test.c \
+		../source/handlers/*.c \
+		#driver-test/*.c
+
+# Hal source section.
+SRCS += ../stm32f4-HAL/Src/stm32f4xx_hal_spi.c \
+		../stm32f4-HAL/Src/stm32f4xx_hal.c \
+		../stm32f4-HAL/Src/stm32f4xx_hal_dma.c \
+		../stm32f4-HAL/Src/stm32f4xx_hal_cortex.c
+
+# Hal Include section.
+INCLUDES += -I../stm32f4-HAL/Inc
+
+# Linker flags
+LDFLAGS = -Tmy_script.ld \
+          -Wl,-Map=firmware.map \
+          -L../CMSIS/Lib -lCMSIS 
+
+# Build rule
+all: $(TARGET)
+
+$(TARGET):
+
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) $(LDFLAGS) -o $@
+
+	arm-none-eabi-objcopy -O binary $(TARGET) $(TARGET).bin
 
 clean:
+	rm -f *.elf *.map *.i *.s *.o $(TARGET) $(TARGET).bin
