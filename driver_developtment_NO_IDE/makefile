@@ -24,6 +24,7 @@ INCLUDES =	-I../header/dma \
 			-I../header/utility \
 			-I../header/system \
 			-I../header/usart \
+			-I../header/net/wiznet-5100 \
 			-I../CMSIS/Core/Include \
 			-I../CMSIS/Device/Include \
 			-I../unit-test/header
@@ -38,6 +39,7 @@ SRCS = ../source/dma/*.c \
 		../source/usart/*.c \
 		../source/utility/*.c \
 		../source/system/*.c \
+		../source/net/wiznet-5100/*.c \
       	../source/init-stm32f446re/*.c \
 		../unit-test/source/*.c \
 		../unit-test/main-test.c \
@@ -47,6 +49,7 @@ SRCS = ../source/dma/*.c \
 # Hal source section.
 SRCS += ../stm32f4-HAL/Src/stm32f4xx_hal_spi.c \
 		../stm32f4-HAL/Src/stm32f4xx_hal.c \
+		../stm32f4-HAL/Src/stm32f4xx_hal_gpio.c \
 		../stm32f4-HAL/Src/stm32f4xx_hal_dma.c \
 		../stm32f4-HAL/Src/stm32f4xx_hal_cortex.c
 
