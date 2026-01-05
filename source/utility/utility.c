@@ -1,5 +1,6 @@
 #include "utility.h"
 #include <string.h>
+#include "gpio.h"
 
 void initUtilities()
 {
@@ -29,14 +30,13 @@ void print(const char* msg, ...)
 	va_end(args);
 }
 
-// void blockMilliseconds(uint32_t delay)
-// {
-// 	uint32_t  timer0 = delay;
-// 	uint32_t* timerList[] = {&timer0};
-// 	uint32_t  timerListSize = sizeof(timerList) / sizeof(uint32_t);
-
-// 	while(sysTickTimerExpired(timer0) == false)
-// 	{
-// 		sysTickUpdateTimers(timerList, timerListSize);
-// 	}
-// }
+void blockMilliseconds(uint32_t delay)
+{
+	uint32_t  timer0 = delay;
+	uint32_t* timerList[] = {&timer0};
+	uint32_t  timerListSize = sizeof(timerList) / sizeof(uint32_t);	
+	while(sysTickTimerExpired(timer0) == false)
+	{
+		sysTickUpdateTimers(timerList, timerListSize);
+	}
+}
