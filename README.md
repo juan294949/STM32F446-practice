@@ -346,6 +346,23 @@ int pipe(int pipefd[2]);
    Success: returns 0.
    Fail: returns -1 and sets errno. */
 
+int dup(int oldfd);
+/*
+Does:
+    Creates a duplicate of an existing open file descriptor `oldfd`.
+    The new descriptor refers to the same open file description as `oldfd`
+    (same underlying file/socket/pipe, same file offset, same status flags).
+
+Success:
+    Returns a new file descriptor (the lowest-numbered unused FD).
+
+Failure:
+    Returns -1 and sets errno.
+
+Errors (common):
+    EBADF    - oldfd is not a valid open file descriptor
+    EMFILE   - process has too many open file descriptors
+    ENFILE   - system-wide file descriptor limit reached
 int dup2(int oldfd, int newfd);
 /*
 Does:
