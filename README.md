@@ -30,13 +30,11 @@ All prototypes are real.
    ====================================================== */
 
 /* ---------------- Memory & Allocation — <stdlib.h> ---------------- */
-
+```c
 void *malloc(size_t size);
-/*
 Allocates `size` bytes of uninitialized memory.
 Success: returns pointer to allocated memory.
 Failure: returns NULL.
-*/
 
 void *calloc(size_t nmemb, size_t size);
 /*
