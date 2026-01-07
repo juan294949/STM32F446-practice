@@ -346,6 +346,32 @@ int pipe(int pipefd[2]);
    Success: returns 0.
    Fail: returns -1 and sets errno. */
 
+int dup2(int oldfd, int newfd);
+/*
+Does:
+    Duplicates the file descriptor `oldfd` onto `newfd`.
+    After the call, `newfd` refers to the same open file description
+    as `oldfd` (same file, offset, and flags).
+
+Typical Use:
+    Used to redirect standard streams (stdin/stdout/stderr)
+    before calling exec().
+
+Example:
+    dup2(fd, STDOUT_FILENO);   // redirect stdout to fd
+
+Success:
+    Returns `newfd`.
+
+Failure:
+    Returns -1 and sets errno.
+
+Errors (common):
+    EBADF   - oldfd is not a valid open file descriptor
+    EBADF   - newfd is out of range
+    EINTR   - interrupted by signal
+
+
 /* <sys/wait.h> */
 pid_t wait(int *status);
 /* Does: wait for any child to change state (usually exit).
